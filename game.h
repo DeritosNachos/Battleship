@@ -6,7 +6,7 @@
 #include <stdio.h>
 
 //Function prototypes
-
+void initializeBoard(char board[10][10], int numRows, int numColumns);
 
 
 
