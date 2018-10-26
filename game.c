@@ -42,3 +42,28 @@ void placeShip(char board[][NUM_COLS], int numRows, int numCols, int shipLength,
 		}
 	}
 }
+
+int detectCollision(char board[][NUM_COLS], int direction, int shipLength, int row, int col) {
+	int isValid = 0;
+	if (direction == HORIZONTAL) {
+		for (int i = 0; i < shipLength; i++) {
+			if (board[row][col+i] != '~') {
+				isValid = 0;
+			} else {
+				isValid = 1;
+			}
+		}
+	}
+	else if (direction == VERTICAL) {
+		for (int i = 0; i < shipLength; i++) {
+			if (board[row + i][col] != '~') {
+				isValid = 0;
+			}
+			else {
+				isValid = 1;
+			}
+		}
+	}
+	
+	return isValid;
+}

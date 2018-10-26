@@ -27,4 +27,7 @@ int generateDirection(void);
 void generateStartingPoint(int direction, int shipLength, int *row, int *column);
 
 void placeShip(char board[][NUM_COLS], int numRows, int numCols, int shipLength, char shipSymbol, int direction, int rowStart, int colStart);
+
+int detectCollision(char board[][NUM_COLS], int direction, int shipLength, int row, int col);
+
 #endif
