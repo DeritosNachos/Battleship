@@ -30,4 +30,10 @@ void placeShip(char board[][NUM_COLS], int numRows, int numCols, int shipLength,
 
 int detectCollision(char board[][NUM_COLS], int direction, int shipLength, int row, int col);
 
+//Datatype Initialization
+typedef struct {
+	int length, direction;
+	char symbol;
+} Ship;
+
 #endif

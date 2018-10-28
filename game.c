@@ -64,6 +64,5 @@ int detectCollision(char board[][NUM_COLS], int direction, int shipLength, int r
 			}
 		}
 	}
-	
 	return isValid;
 }
