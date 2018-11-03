@@ -66,3 +66,9 @@ int detectCollision(char board[][NUM_COLS], int direction, int shipLength, int r
 	}
 	return isValid;
 }
+
+//Returns 0 if player 1 starts, 1 if player 2 starts
+int selectWhoStartsFirst(void) {
+	return rand() % 2;
+}
+

@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <stdbool.h>
 
 #define HORIZONTAL 0
 #define VERTICAL 1
@@ -18,10 +19,10 @@
 #define DESTROYER_LENGTH 2
 
 //Datatype Initialization
-typedef struct {
-	int length, direction;
-	char symbol;
-} Ship;
+//typedef struct {
+//	int length, direction;
+//	char symbol;
+//} Ship;
 
 typedef struct {
 	int numHits, numMisses, totalShots;
@@ -40,5 +41,7 @@ void generateStartingPoint(int direction, int shipLength, int *row, int *column)
 void placeShip(char board[][NUM_COLS], int numRows, int numCols, int shipLength, char shipSymbol, int direction, int rowStart, int colStart);
 
 int detectCollision(char board[][NUM_COLS], int direction, int shipLength, int row, int col);
+
+int selectWhoStartsFirst(void);
 
 #endif
