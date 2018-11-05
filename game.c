@@ -72,3 +72,56 @@ int selectWhoStartsFirst(void) {
 	return rand() % 2;
 }
 
+void manuallyPlaceShips(int carrierCoords[CARRIER_LENGTH*2], int battleshipCoords[BATTLESHIP_LENGTH*2],
+	int submarineCoords[SUBMARINE_LENGTH*2], int cruiserCoords[CRUISER_LENGTH*2], int destroyerCoords[DESTROYER_LENGTH*2]) {
+	int placing = 1, row = 0, col = 0;
+	while (placing) {
+		carrierPlacement:
+		printf("Please enter the cells you would like to place the carrier in:\n");
+		for (int i = 0; i < CARRIER_LENGTH; i++) {
+			printf("Row #%d: ", i+1);
+			scanf("%d", &row);
+			printf("Col #%d: ", i+1);
+			scanf("%d", &col);
+			if ((row >= 0 && row <= 9) && (col >= 0 && col <= 9)) {
+				carrierCoords[i] = row;
+				carrierCoords[i + 1] = col;
+			}
+		}
+		if (checkPlacement(carrierCoords) == 0) {
+			printf("That placement isn't valid! Please try again.\n");
+			goto carrierPlacement;
+		}
+	}
+}
+
+int checkPlacement(int coords[]) {
+	int isValid = 0, rowsValid = 0, colsValid = 0;
+	int rowCheck = coords[0];
+	int colCheck = coords[1];
+	int size = sizeof(coords) / sizeof(int);
+	for (int i = 0; i < size; i++) {
+		//All indices 0, 2, 4, etc. are row #'s
+		//All indices 1, 3, 5, etc. are col #'s
+		if (i % 2 == 0) {
+			//Row index
+			if (coords[i] == rowCheck) {
+				rowsValid = 1;
+			} else {
+				rowsValid = 0;
+			}
+		} else {
+			//Column index
+			if (coords[i] == colCheck) {
+				colsValid = 1;
+			} else {
+				colsValid = 0;
+			}
+		}
+	}
+	if (rowsValid || colsValid) {
+		return 1;
+	}
+	return 0;
+}
+

@@ -44,4 +44,8 @@ int detectCollision(char board[][NUM_COLS], int direction, int shipLength, int r
 
 int selectWhoStartsFirst(void);
 
+void manuallyPlaceShips(int carrierCoords[CARRIER_LENGTH * 2], int battleshipCoords[BATTLESHIP_LENGTH * 2], int submarineCoords[SUBMARINE_LENGTH * 2], int cruiserCoords[CRUISER_LENGTH * 2], int destroyerCoords[DESTROYER_LENGTH * 2]);
+
+int checkPlacement(int coords[]);
+
 #endif
