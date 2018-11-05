@@ -10,7 +10,13 @@ void initializeBoard(char board[10][10], int numRows, int numColumns) {
 
 void printBoard(char board[10][10], int numRows, int numColumns) {
 	for (int i = 0; i < numRows; i++) {
+		if (i == 0) {
+			printf("    0  1  2  3  4  5  6  7  8  9\n");
+		}
 		for (int j = 0; j < numColumns; j++) {
+			if (j == 0) {
+				printf(" %d ", i);
+			}
 			printf(" %c ", board[i][j]);
 		}
 		printf("\n");
