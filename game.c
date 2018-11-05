@@ -217,7 +217,7 @@ int checkPlacement(int coords[], int shipSize) {
 	int count = 0;
 	//Row checking
 	for (int i = 0; i < shipSize*2; i += 2) {
-		coords[i] = rowCoords[count];
+		rowCoords[count] = coords[i];
 		if (coords[i] != rowCheck) {
 			rowsValid = 0;
 		}
@@ -227,7 +227,7 @@ int checkPlacement(int coords[], int shipSize) {
 	//Column checking
 	count = 0;
 	for (int i = 1; i < shipSize*2; i += 2) {
-		coords[i] = colCoords[count];
+		colCoords[count] = coords[i];
 		if (coords[i] != colCheck) {
 			colsValid = 0;
 		}
@@ -236,20 +236,25 @@ int checkPlacement(int coords[], int shipSize) {
 
 	if ((rowsValid && !colsValid)) {
 		//Check column values are in sequence by sorting
+		bubbleSort(colCoords, shipSize);
+		for (int i = 1; i < shipSize; i++) {
+			if (colCoords[i] > colCoords[i - 1] + 1) {
+				return 0;
+			}
+		}
 		return 1;
 	}
 	else if ((!rowsValid && colsValid)) {
 		//Check row values are in sequence by sorting
+		bubbleSort(rowCoords, shipSize);
+		for (int i = 1; i < shipSize; i++) {
+			if (rowCoords[i] > rowCoords[i - 1] + 1) {
+				return 0;
+			}
+		}
 		return 1;
 	}
 	return 0;
-}
-
-//Swap function for use in bubble sort
-void swap(int one, int two) {
-	int temp = one;
-	two = one;
-	one = temp;
 }
 
 //Implemented bubble sort for use in other functions

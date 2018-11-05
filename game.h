@@ -48,4 +48,6 @@ void manuallyPlaceShips(char board[][NUM_COLS]);
 
 int checkPlacement(int coords[], int shipSize);
 
+void bubbleSort(int arr[], int size);
+
 #endif
