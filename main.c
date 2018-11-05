@@ -30,10 +30,22 @@ int main(void) {
 		scanf("%d", &intIn);
 	} while (!(intIn == 1 || intIn == 2));
 	if (intIn == 1) {
-
+		for (int i = 0; i < 5; i++) {
+			//Random placement of ships for player (Player 1)
+			placing = true;
+			direction = generateDirection();
+			do {
+				generateStartingPoint(direction, shipLengths[i], &rowStart, &colStart);
+				if (detectCollision(playerOneBoard, direction, shipLengths[i], rowStart, colStart) == true) {
+					placeShip(playerOneBoard, NUM_ROWS, NUM_COLS, shipLengths[i], shipSymbols[i], direction, rowStart, colStart);
+					placing = false;
+				}
+			} while (placing);
+		}
 	} else {
 		manuallyPlaceShips(playerOneBoard);
 	}
+	printf("PLAYER ONE BOARD:\n");
 	printBoard(playerOneBoard, NUM_ROWS, NUM_COLS);
 	system("pause");
 
@@ -49,6 +61,7 @@ int main(void) {
 			}
 		} while (placing);
 	}
+	printf("PLAYER 2 BOARD:\n");
 	printBoard(playerTwoBoard, NUM_ROWS, NUM_COLS);
 
 	return 0; //End of main function
