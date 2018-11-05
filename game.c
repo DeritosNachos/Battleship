@@ -93,7 +93,7 @@ void manuallyPlaceShips(char board[][NUM_COLS]) {
 				goto carrierPlacement;
 			}
 		}
-		if (checkPlacement(carrierCoords, CARRIER_LENGTH) == 0) {
+		if (checkPlacement(board, carrierCoords, CARRIER_LENGTH) == 0) {
 			printf("That placement isn't valid! Please try again.\n");
 			goto carrierPlacement;
 		}
@@ -120,7 +120,7 @@ void manuallyPlaceShips(char board[][NUM_COLS]) {
 				goto battleshipPlacement;
 			}
 		}
-		if (checkPlacement(battleshipCoords, BATTLESHIP_LENGTH) == 0) {
+		if (checkPlacement(board, battleshipCoords, BATTLESHIP_LENGTH) == 0) {
 			printf("That placement isn't valid! Please try again.\n");
 			goto battleshipPlacement;
 		}
@@ -147,7 +147,7 @@ void manuallyPlaceShips(char board[][NUM_COLS]) {
 				goto submarinePlacement;
 			}
 		}
-		if (checkPlacement(submarineCoords, SUBMARINE_LENGTH) == 0) {
+		if (checkPlacement(board, submarineCoords, SUBMARINE_LENGTH) == 0) {
 			printf("That placement isn't valid! Please try again.\n");
 			goto submarinePlacement;
 		}
@@ -174,7 +174,7 @@ void manuallyPlaceShips(char board[][NUM_COLS]) {
 				goto cruiserPlacement;
 			}
 		}
-		if (checkPlacement(carrierCoords, CRUISER_LENGTH) == 0) {
+		if (checkPlacement(board, cruiserCoords, CRUISER_LENGTH) == 0) {
 			printf("That placement isn't valid! Please try again.\n");
 			goto cruiserPlacement;
 		}
@@ -201,7 +201,7 @@ void manuallyPlaceShips(char board[][NUM_COLS]) {
 				goto destroyerPlacement;
 			}
 		}
-		if (checkPlacement(carrierCoords, DESTROYER_LENGTH) == 0) {
+		if (checkPlacement(board, destroyerCoords, DESTROYER_LENGTH) == 0) {
 			printf("That placement isn't valid! Please try again.\n");
 			goto destroyerPlacement;
 		}
@@ -209,10 +209,11 @@ void manuallyPlaceShips(char board[][NUM_COLS]) {
 		for (int i = 0; i < (DESTROYER_LENGTH*2); i+=2) {
 			board[destroyerCoords[i]][destroyerCoords[i+1]] = 'D';
 		}
+		system("cls");
 }
 
 //Add board checking
-int checkPlacement(int coords[], int shipSize) {
+int checkPlacement(char board[][NUM_COLS], int coords[], int shipSize) {
 	int rowsValid = 1, colsValid = 1, count = 0;
 	int rowCheck = coords[0];
 	int colCheck = coords[1];
@@ -242,7 +243,7 @@ int checkPlacement(int coords[], int shipSize) {
 		//Check column values are in sequence by sorting
 		bubbleSort(colCoords, shipSize);
 		for (int i = 1; i < shipSize; i++) {
-			if (colCoords[i] > colCoords[i - 1] + 1) {
+			if ((colCoords[i] > colCoords[i - 1] + 1) || board[rowCoords[i]][colCoords[i]] != '~') {
 				return 0;
 			}
 		}
@@ -252,7 +253,7 @@ int checkPlacement(int coords[], int shipSize) {
 		//Check row values are in sequence by sorting
 		bubbleSort(rowCoords, shipSize);
 		for (int i = 1; i < shipSize; i++) {
-			if (rowCoords[i] > rowCoords[i - 1] + 1) {
+			if ((rowCoords[i] > rowCoords[i - 1] + 1) || board[rowCoords[i]][colCoords[i]] != '~') {
 				return 0;
 			}
 		}
