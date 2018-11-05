@@ -73,10 +73,9 @@ int selectWhoStartsFirst(void) {
 }
 
 void manuallyPlaceShips(char board[][NUM_COLS]) {
-	int placing = 1, row = 0, col = 0;
+	int row = 0, col = 0;
 	int carrierCoords[CARRIER_LENGTH * 2] = { 0 }, battleshipCoords[BATTLESHIP_LENGTH * 2] = { 0 },
 		submarineCoords[SUBMARINE_LENGTH * 2] = { 0 }, cruiserCoords[CRUISER_LENGTH * 2] = { 0 }, destroyerCoords[DESTROYER_LENGTH * 2] = { 0 };
-	while (placing) {
 		carrierPlacement:
 		printf("Please enter the cells you would like to place the carrier in:\n");
 		int count = 0;
@@ -102,14 +101,15 @@ void manuallyPlaceShips(char board[][NUM_COLS]) {
 		for (int i = 0; i < (CARRIER_LENGTH*2); i+=2) {
 			board[carrierCoords[i]][carrierCoords[i+1]] = 'C';
 		}
-		break;
+		printBoard(board, NUM_ROWS, NUM_COLS);
 
 	battleshipPlacement:
+		count = 0;
 		printf("Please enter the cells you would like to place the battleship in:\n");
-		for (int i = 0; i < BATTLESHIP_LENGTH; i++) {
-			printf("Row #%d: ", i + 1);
+		for (int i = 0; i < (BATTLESHIP_LENGTH*2); i+=2) {
+			printf("Row #%d: ", ++count);
 			scanf("%d", &row);
-			printf("Col #%d: ", i + 1);
+			printf("Col #%d: ", count);
 			scanf("%d", &col);
 			if ((row >= 0 && row <= 9) && (col >= 0 && col <= 9)) {
 				battleshipCoords[i] = row;
@@ -125,16 +125,18 @@ void manuallyPlaceShips(char board[][NUM_COLS]) {
 			goto battleshipPlacement;
 		}
 		//Battleship initialization/placement on board
-		for (int i = 0; i < (BATTLESHIP_LENGTH*2)+1; i+=2) {
+		for (int i = 0; i < (BATTLESHIP_LENGTH*2); i+=2) {
 			board[battleshipCoords[i]][battleshipCoords[i + 1]] = 'B';
 		}
+		printBoard(board, NUM_ROWS, NUM_COLS);
 
 	submarinePlacement:
-		printf("Please enter the cells you would like to place the carrier in:\n");
-		for (int i = 0; i < SUBMARINE_LENGTH; i++) {
-			printf("Row #%d: ", i + 1);
+		count = 0;
+		printf("Please enter the cells you would like to place the submarine in:\n");
+		for (int i = 0; i < SUBMARINE_LENGTH*2; i+=2) {
+			printf("Row #%d: ", ++count);
 			scanf("%d", &row);
-			printf("Col #%d: ", i + 1);
+			printf("Col #%d: ", count);
 			scanf("%d", &col);
 			if ((row >= 0 && row <= 9) && (col >= 0 && col <= 9)) {
 				submarineCoords[i] = row;
@@ -150,16 +152,18 @@ void manuallyPlaceShips(char board[][NUM_COLS]) {
 			goto submarinePlacement;
 		}
 		//Submarine initialization/placement on board
-		for (int i = 0; i < (SUBMARINE_LENGTH*2)+1; i+=2) {
+		for (int i = 0; i < (SUBMARINE_LENGTH*2); i+=2) {
 			board[submarineCoords[i]][submarineCoords[i+1]] = 'S';
 		}
+		printBoard(board, NUM_ROWS, NUM_COLS);
 
 	cruiserPlacement:
-		printf("Please enter the cells you would like to place the carrier in:\n");
-		for (int i = 0; i < CRUISER_LENGTH; i++) {
-			printf("Row #%d: ", i + 1);
+		count = 0;
+		printf("Please enter the cells you would like to place the cruiser in:\n");
+		for (int i = 0; i < CRUISER_LENGTH*2; i+=2) {
+			printf("Row #%d: ", ++count);
 			scanf("%d", &row);
-			printf("Col #%d: ", i + 1);
+			printf("Col #%d: ", count);
 			scanf("%d", &col);
 			if ((row >= 0 && row <= 9) && (col >= 0 && col <= 9)) {
 				cruiserCoords[i] = row;
@@ -175,16 +179,18 @@ void manuallyPlaceShips(char board[][NUM_COLS]) {
 			goto cruiserPlacement;
 		}
 		//Cruiser initialization/placement on board
-		for (int i = 0; i < (CRUISER_LENGTH*2)+1; i+=2) {
+		for (int i = 0; i < (CRUISER_LENGTH*2); i+=2) {
 			board[cruiserCoords[i]][cruiserCoords[i+1]] = 'R';
 		}
+		printBoard(board, NUM_ROWS, NUM_COLS);
 
 	destroyerPlacement:
-		printf("Please enter the cells you would like to place the carrier in:\n");
-		for (int i = 0; i < DESTROYER_LENGTH; i++) {
-			printf("Row #%d: ", i + 1);
+		count = 0;
+		printf("Please enter the cells you would like to place the destroyer in:\n");
+		for (int i = 0; i < DESTROYER_LENGTH*2; i+=2) {
+			printf("Row #%d: ", ++count);
 			scanf("%d", &row);
-			printf("Col #%d: ", i + 1);
+			printf("Col #%d: ", count);
 			scanf("%d", &col);
 			if ((row >= 0 && row <= 9) && (col >= 0 && col <= 9)) {
 				destroyerCoords[i] = row;
@@ -200,21 +206,19 @@ void manuallyPlaceShips(char board[][NUM_COLS]) {
 			goto destroyerPlacement;
 		}
 		//Destroyer initialization/placement on board
-		for (int i = 0; i < (DESTROYER_LENGTH*2)+1; i+=2) {
-			board[destroyerCoords[i]][destroyerCoords[i+1]] = 'C';
+		for (int i = 0; i < (DESTROYER_LENGTH*2); i+=2) {
+			board[destroyerCoords[i]][destroyerCoords[i+1]] = 'D';
 		}
-	}
 }
 
 //Add board checking
 int checkPlacement(int coords[], int shipSize) {
-	int rowsValid = 1, colsValid = 1;
+	int rowsValid = 1, colsValid = 1, count = 0;
 	int rowCheck = coords[0];
 	int colCheck = coords[1];
-	int size = sizeof(coords) / sizeof(int);
 	int rowCoords[100] = { 0 };
 	int colCoords[100] = { 0 };
-	int count = 0;
+
 	//Row checking
 	for (int i = 0; i < shipSize*2; i += 2) {
 		rowCoords[count] = coords[i];
