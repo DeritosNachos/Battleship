@@ -72,56 +72,197 @@ int selectWhoStartsFirst(void) {
 	return rand() % 2;
 }
 
-void manuallyPlaceShips(int carrierCoords[CARRIER_LENGTH*2], int battleshipCoords[BATTLESHIP_LENGTH*2],
-	int submarineCoords[SUBMARINE_LENGTH*2], int cruiserCoords[CRUISER_LENGTH*2], int destroyerCoords[DESTROYER_LENGTH*2]) {
+void manuallyPlaceShips(char board[][NUM_COLS]) {
 	int placing = 1, row = 0, col = 0;
+	int carrierCoords[CARRIER_LENGTH * 2] = { 0 }, battleshipCoords[BATTLESHIP_LENGTH * 2] = { 0 },
+		submarineCoords[SUBMARINE_LENGTH * 2] = { 0 }, cruiserCoords[CRUISER_LENGTH * 2] = { 0 }, destroyerCoords[DESTROYER_LENGTH * 2] = { 0 };
 	while (placing) {
 		carrierPlacement:
 		printf("Please enter the cells you would like to place the carrier in:\n");
-		for (int i = 0; i < CARRIER_LENGTH; i++) {
-			printf("Row #%d: ", i+1);
+		int count = 0;
+		for (int i = 0; i < (CARRIER_LENGTH*2); i+=2) {
+			printf("Row #%d: ", ++count);
 			scanf("%d", &row);
-			printf("Col #%d: ", i+1);
+			printf("Col #%d: ", count);
 			scanf("%d", &col);
 			if ((row >= 0 && row <= 9) && (col >= 0 && col <= 9)) {
 				carrierCoords[i] = row;
 				carrierCoords[i + 1] = col;
 			}
+			else {
+				printf("Invalid row/column values!\n");
+				goto carrierPlacement;
+			}
 		}
-		if (checkPlacement(carrierCoords) == 0) {
+		if (checkPlacement(carrierCoords, CARRIER_LENGTH) == 0) {
 			printf("That placement isn't valid! Please try again.\n");
 			goto carrierPlacement;
+		}
+		//Carrier initialization/placement on board
+		for (int i = 0; i < (CARRIER_LENGTH*2); i+=2) {
+			board[carrierCoords[i]][carrierCoords[i+1]] = 'C';
+		}
+		break;
+
+	battleshipPlacement:
+		printf("Please enter the cells you would like to place the battleship in:\n");
+		for (int i = 0; i < BATTLESHIP_LENGTH; i++) {
+			printf("Row #%d: ", i + 1);
+			scanf("%d", &row);
+			printf("Col #%d: ", i + 1);
+			scanf("%d", &col);
+			if ((row >= 0 && row <= 9) && (col >= 0 && col <= 9)) {
+				battleshipCoords[i] = row;
+				battleshipCoords[i + 1] = col;
+			}
+			else {
+				printf("Invalid row/column values!\n");
+				goto battleshipPlacement;
+			}
+		}
+		if (checkPlacement(battleshipCoords, BATTLESHIP_LENGTH) == 0) {
+			printf("That placement isn't valid! Please try again.\n");
+			goto battleshipPlacement;
+		}
+		//Battleship initialization/placement on board
+		for (int i = 0; i < (BATTLESHIP_LENGTH*2)+1; i+=2) {
+			board[battleshipCoords[i]][battleshipCoords[i + 1]] = 'B';
+		}
+
+	submarinePlacement:
+		printf("Please enter the cells you would like to place the carrier in:\n");
+		for (int i = 0; i < SUBMARINE_LENGTH; i++) {
+			printf("Row #%d: ", i + 1);
+			scanf("%d", &row);
+			printf("Col #%d: ", i + 1);
+			scanf("%d", &col);
+			if ((row >= 0 && row <= 9) && (col >= 0 && col <= 9)) {
+				submarineCoords[i] = row;
+				submarineCoords[i + 1] = col;
+			}
+			else {
+				printf("Invalid row/column values!\n");
+				goto submarinePlacement;
+			}
+		}
+		if (checkPlacement(submarineCoords, SUBMARINE_LENGTH) == 0) {
+			printf("That placement isn't valid! Please try again.\n");
+			goto submarinePlacement;
+		}
+		//Submarine initialization/placement on board
+		for (int i = 0; i < (SUBMARINE_LENGTH*2)+1; i+=2) {
+			board[submarineCoords[i]][submarineCoords[i+1]] = 'S';
+		}
+
+	cruiserPlacement:
+		printf("Please enter the cells you would like to place the carrier in:\n");
+		for (int i = 0; i < CRUISER_LENGTH; i++) {
+			printf("Row #%d: ", i + 1);
+			scanf("%d", &row);
+			printf("Col #%d: ", i + 1);
+			scanf("%d", &col);
+			if ((row >= 0 && row <= 9) && (col >= 0 && col <= 9)) {
+				cruiserCoords[i] = row;
+				cruiserCoords[i + 1] = col;
+			}
+			else {
+				printf("Invalid row/column values!\n");
+				goto cruiserPlacement;
+			}
+		}
+		if (checkPlacement(carrierCoords, CRUISER_LENGTH) == 0) {
+			printf("That placement isn't valid! Please try again.\n");
+			goto cruiserPlacement;
+		}
+		//Cruiser initialization/placement on board
+		for (int i = 0; i < (CRUISER_LENGTH*2)+1; i+=2) {
+			board[cruiserCoords[i]][cruiserCoords[i+1]] = 'R';
+		}
+
+	destroyerPlacement:
+		printf("Please enter the cells you would like to place the carrier in:\n");
+		for (int i = 0; i < DESTROYER_LENGTH; i++) {
+			printf("Row #%d: ", i + 1);
+			scanf("%d", &row);
+			printf("Col #%d: ", i + 1);
+			scanf("%d", &col);
+			if ((row >= 0 && row <= 9) && (col >= 0 && col <= 9)) {
+				destroyerCoords[i] = row;
+				destroyerCoords[i + 1] = col;
+			}
+			else {
+				printf("Invalid row/column values!\n");
+				goto destroyerPlacement;
+			}
+		}
+		if (checkPlacement(carrierCoords, DESTROYER_LENGTH) == 0) {
+			printf("That placement isn't valid! Please try again.\n");
+			goto destroyerPlacement;
+		}
+		//Destroyer initialization/placement on board
+		for (int i = 0; i < (DESTROYER_LENGTH*2)+1; i+=2) {
+			board[destroyerCoords[i]][destroyerCoords[i+1]] = 'C';
 		}
 	}
 }
 
-int checkPlacement(int coords[]) {
-	int isValid = 0, rowsValid = 0, colsValid = 0;
+//Add board checking
+int checkPlacement(int coords[], int shipSize) {
+	int rowsValid = 1, colsValid = 1;
 	int rowCheck = coords[0];
 	int colCheck = coords[1];
 	int size = sizeof(coords) / sizeof(int);
-	for (int i = 0; i < size; i++) {
-		//All indices 0, 2, 4, etc. are row #'s
-		//All indices 1, 3, 5, etc. are col #'s
-		if (i % 2 == 0) {
-			//Row index
-			if (coords[i] == rowCheck) {
-				rowsValid = 1;
-			} else {
-				rowsValid = 0;
-			}
-		} else {
-			//Column index
-			if (coords[i] == colCheck) {
-				colsValid = 1;
-			} else {
-				colsValid = 0;
-			}
+	int rowCoords[100] = { 0 };
+	int colCoords[100] = { 0 };
+	int count = 0;
+	//Row checking
+	for (int i = 0; i < shipSize*2; i += 2) {
+		coords[i] = rowCoords[count];
+		if (coords[i] != rowCheck) {
+			rowsValid = 0;
 		}
+		count++;
 	}
-	if (rowsValid || colsValid) {
+
+	//Column checking
+	count = 0;
+	for (int i = 1; i < shipSize*2; i += 2) {
+		coords[i] = colCoords[count];
+		if (coords[i] != colCheck) {
+			colsValid = 0;
+		}
+		count++;
+	}
+
+	if ((rowsValid && !colsValid)) {
+		//Check column values are in sequence by sorting
+		return 1;
+	}
+	else if ((!rowsValid && colsValid)) {
+		//Check row values are in sequence by sorting
 		return 1;
 	}
 	return 0;
+}
+
+//Swap function for use in bubble sort
+void swap(int one, int two) {
+	int temp = one;
+	two = one;
+	one = temp;
+}
+
+//Implemented bubble sort for use in other functions
+void bubbleSort(int arr[], int size) {
+	int temp = 0;
+	for (int i = 0; i < size; i++) {
+		for (int j = 0; j < size - i - 1; j++) {
+			if (arr[j] > arr[j + 1]) {
+				temp = arr[j];
+				arr[j] = arr[j + 1];
+				arr[j + 1] = temp;
+			}
+		}
+	}
 }
 

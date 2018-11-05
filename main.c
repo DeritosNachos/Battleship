@@ -10,6 +10,7 @@ int main(void) {
 		playerTwoHits[NUM_ROWS][NUM_COLS] = { { 0 } };
 	int shipLengths[5] = { CARRIER_LENGTH, BATTLESHIP_LENGTH, SUBMARINE_LENGTH, CRUISER_LENGTH, DESTROYER_LENGTH };
 	int direction = HORIZONTAL, rowStart = 0, colStart = 0;
+	int intIn = 0;
 	bool placing = false;
 
 	//Ship carrier = { CARRIER_LENGTH, 0, 'C' }, battleship = { BATTLESHIP_LENGTH, 0, 'B' },
@@ -20,6 +21,21 @@ int main(void) {
 	initializeBoard(playerTwoBoard, NUM_ROWS, NUM_COLS);
 	printBoard(playerOneBoard, NUM_ROWS, NUM_COLS);
 	printf("\n\n");
+
+	//Manual or random placement
+	printf("Would you like to manually place your ships, or randomly generate a board?\n");
+	printf("1. Randomly generate\n");
+	printf("2. Manually place\n");
+	do {
+		scanf("%d", &intIn);
+	} while (!(intIn == 1 || intIn == 2));
+	if (intIn == 1) {
+
+	} else {
+		manuallyPlaceShips(playerOneBoard);
+	}
+	printBoard(playerOneBoard, NUM_ROWS, NUM_COLS);
+	system("pause");
 
 	for (int i = 0; i < 5; i++) {
 		//Random placement of ships for computer (Player 2)
