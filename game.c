@@ -340,3 +340,46 @@ int checkIfSunkShip(char board[][NUM_COLS], char shipToken) {
 	return 0;
 }
 
+void outputCurrentMove(FILE *outfile, int currentPlayer, int xPos, int yPos, int wasHit, int wasSunk) {
+	switch (currentPlayer) {
+	case 0: //Player
+		if (wasHit) {
+			if (wasSunk) {
+				fprintf(outfile, "Player 1 attacked at %d, %d. It was a hit, and the enemy's ship sank!\n", xPos, yPos);
+			} else {
+				fprintf(outfile, "Player 1 attacked at %d, %d. It was a hit!\n", xPos, yPos);
+			}
+		} else {
+			fprintf(outfile, "Player 1 attacked at %d, %d. It was a miss.", xPos, yPos);
+		}
+		break;
+	case 1: //Computer
+		if (wasHit) {
+			if (wasSunk) {
+				fprintf(outfile, "Computer attacked at %d, %d. It was a hit, and the player's ship sank!\n", xPos, yPos);
+			}
+			else {
+				fprintf(outfile, "Computer attacked at %d, %d. It was a hit!\n", xPos, yPos);
+			}
+		}
+		else {
+			fprintf(outfile, "Computer attacked at %d, %d. It was a miss.", xPos, yPos);
+		}
+		break;
+	}
+}
+
+void outputStats(FILE *outfile, Stats playerOne, Stats playerTwo) {
+	fprintf(outfile, "Player One Stats:\n");
+	fprintf(outfile, "-----------------\n");
+	fprintf(outfile, "Number of Hits: %d\n", playerOne.numHits);
+	fprintf(outfile, "Number of Misses: %d\n", playerOne.numMisses);
+	fprintf(outfile, "Total Number of Shots: %d\n", playerOne.totalShots);
+	fprintf(outfile, "Hit/Miss Ratio: %lf\n", playerOne.hitsMisses);
+	fprintf(outfile, "Computer Stats:\n");
+	fprintf(outfile, "-----------------\n");
+	fprintf(outfile, "Number of Hits: %d\n", playerTwo.numHits);
+	fprintf(outfile, "Number of Misses: %d\n", playerTwo.numMisses);
+	fprintf(outfile, "Total Number of Shots: %d\n", playerTwo.totalShots);
+	fprintf(outfile, "Hit/Miss Ratio: %lf\n", playerTwo.hitsMisses);
+}
