@@ -297,3 +297,30 @@ int isWinner(char board[][NUM_COLS]) {
 	return 0;
 }
 
+int checkShot(char board[][NUM_COLS], int xPos, int yPos) {
+	for (int i = 0; i < NUM_ROWS; i++) {
+		for (int j = 0; j < NUM_COLS; j++) {
+			if (i == xPos && j == yPos) {
+				if (board[i][j] != '~') {
+					if (board[i][j] != 'M' || board[i][j] != '*') {
+						return 1;
+					}
+				}
+			}
+		}
+	}
+	return 0;
+}
+
+void updateBoard(char board[][NUM_COLS], int xPos, int yPos) {
+	for (int i = 0; i < NUM_ROWS; i++) {
+		for (int j = 0; j < NUM_COLS; j++) {
+			if (checkShot(board, xPos, yPos) == 1) {
+				board[i][j] = '*';
+			} else {
+				board[i][j] = 'M';
+			}
+		}
+	}
+}
+
