@@ -3,6 +3,7 @@
 int main(void) {
 	srand((unsigned int)time(NULL));
 
+	//Note that playerTwoBoard mostly exists for debugging purposes.
 	char playerOneBoard[NUM_ROWS][NUM_COLS] = { {'\0'} },
 		playerTwoBoard[NUM_ROWS][NUM_COLS] = { { '\0'} },
 		pTwoShownBoard[NUM_ROWS][NUM_COLS] = { { '\0' } },
@@ -13,19 +14,29 @@ int main(void) {
 	int intIn = 0, xPos = 0, yPos = 0, wasHit = 0, wasSunk = 0, generating = 1;
 	bool placing = false, hasWon = false, hasLost = false;
 	char shipHit = '\0';
-
 	Stats playerOne = {0, 0, 0, 0.0};
 	Stats playerTwo = {0, 0, 0, 0.0};
-
 	FILE *outfile = NULL;
 	outfile = fopen("battleship.log", "w");
 
 	initializeBoard(playerOneBoard, NUM_ROWS, NUM_COLS);
 	initializeBoard(playerTwoBoard, NUM_ROWS, NUM_COLS);
 	initializeBoard(pTwoShownBoard, NUM_ROWS, NUM_COLS);
-	printf("Welcome to BATTLESHIP!\n");
-	printf("1. This is a two player game.\n");
-	printf("2. Player 1 is you, player 2 is the computer.\n");
+
+	//ASCII art generated at http://patorjk.com/software/taag/.
+	printf(" ____    ____  ______  ______  _        ___  _____ __ __  ____  ____  \n");
+	printf("|    \\  /    ||      ||      || |      /  _]/ ___/|  |  ||    ||    \\ \n");
+	printf("|  o  )|  o  ||      ||      || |     /  [_(   \\_ |  |  | |  | |  o  )\n");
+	printf("|     ||     ||_|  |_||_|  |_|| |___ |    _]\\__  ||  _  | |  | |   _/ \n");
+	printf("|  O  ||  _  |  |  |    |  |  |     ||   [_ /  \\ ||  |  | |  | |  |   \n");
+	printf("|     ||  |  |  |  |    |  |  |     ||     |\\    ||  |  | |  | |  |   \n");
+	printf("|_____||__|__|  |__|    |__|  |_____||_____| \\___||__|__||____||__|   \n");
+	printf("                                              implemented by Zach Nett\n\n");
+	printf("1. This is a multiplayer, two player game.\n");
+	printf("2. Player 1 is you, Player 2 is the computer.\n");
+	printf("3. You and your opponent have five ships each: a carrier, battleship, submarine,\n");
+	printf("   cruiser, and destroyer. Your objective is to guess your enemy's ships' coordinates.\n");
+	printf("   If you manage to 'sink' (destroy all of your enemy's ships), you win!\n");
 	printf("Press enter to start the game!\n");
 	getch();
 	system("cls");
@@ -91,7 +102,7 @@ int main(void) {
 			printf("Your Board:\n");
 			printBoard(playerOneBoard, NUM_ROWS, NUM_COLS);
 			printf("\nComputer's Board:\n");
-			printBoard(playerTwoBoard, NUM_ROWS, NUM_COLS);
+			printBoard(pTwoShownBoard, NUM_ROWS, NUM_COLS);
 			printf("Enter a target: ");
 			scanf("%d %d", &xPos, &yPos);
 			playerOne.totalShots++;
