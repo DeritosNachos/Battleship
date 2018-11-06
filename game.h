@@ -52,7 +52,7 @@ void bubbleSort(int arr[], int size);
 
 int isWinner(char board[][NUM_COLS]);
 
-void updateBoard(char board[][NUM_COLS], int xPos, int yPos);
+void updateBoard(char board[][NUM_COLS], int xPos, int yPos, int wasHit);
 
 int checkShot(char board[][NUM_COLS], int xPos, int yPos, char *token);
 

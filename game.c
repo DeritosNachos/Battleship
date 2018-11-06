@@ -304,8 +304,8 @@ int checkShot(char board[][NUM_COLS], int xPos, int yPos, char *token) {
 				if (board[i][j] != '~') {
 					if (board[i][j] != 'M' || board[i][j] != '*') {
 						*token = board[i][j];
-						return 1;
 					}
+					return 1;
 				}
 			}
 		}
@@ -313,14 +313,18 @@ int checkShot(char board[][NUM_COLS], int xPos, int yPos, char *token) {
 	return 0;
 }
 
-void updateBoard(char board[][NUM_COLS], int xPos, int yPos) {
+void updateBoard(char board[][NUM_COLS], int xPos, int yPos, int wasHit) {
+	char shipToken = '\0';
 	for (int i = 0; i < NUM_ROWS; i++) {
 		for (int j = 0; j < NUM_COLS; j++) {
-			if (checkShot(board, xPos, yPos, '\0') == 1) {
-				board[i][j] = '*';
-			} else if (i == xPos && j == yPos) {
-				board[i][j] = 'M';
+			if (i == xPos && j == yPos) {
+				if (wasHit) {
+					board[i][j] = '*';
+				} else {
+					board[i][j] = 'M';
+				}
 			}
+			
 		}
 	}
 }
