@@ -18,12 +18,7 @@
 #define CRUISER_LENGTH 3
 #define DESTROYER_LENGTH 2
 
-//Datatype Initialization
-//typedef struct {
-//	int length, direction;
-//	char symbol;
-//} Ship;
-
+//Datatype initialization
 typedef struct {
 	int numHits, numMisses, totalShots;
 	double hitsMisses;

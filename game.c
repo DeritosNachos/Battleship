@@ -55,7 +55,7 @@ int detectCollision(char board[][NUM_COLS], int direction, int shipLength, int r
 		for (int i = 0; i < shipLength; i++) {
 			if (board[row][col+i] != '~') {
 				isValid = 0;
-			} else {
+			} else if (board[row][col + 1] == '~') {
 				isValid = 1;
 			}
 		}
@@ -65,7 +65,7 @@ int detectCollision(char board[][NUM_COLS], int direction, int shipLength, int r
 			if (board[row + i][col] != '~') {
 				isValid = 0;
 			}
-			else {
+			else if (board[row + i][col] == '~') {
 				isValid = 1;
 			}
 		}
