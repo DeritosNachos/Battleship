@@ -1,4 +1,9 @@
-/*Header here*/
+/****************************************************
+ Programmer: Zach Nett
+ Class: CptS 121 Fall 2018
+ Date: November 5 2018
+ Purpose: Text implementation of the game Battleship.
+*****************************************************/
 //Functions generateDirection, generateStartingPoint, and placeShip adapted from Andrew O'Fallon.
 #ifndef GAME_H
 #define GAME_H
@@ -8,6 +13,7 @@
 #include <time.h>
 #include <stdbool.h>
 
+//Define constants.
 #define HORIZONTAL 0
 #define VERTICAL 1
 #define NUM_ROWS 10

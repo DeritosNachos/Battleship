@@ -1,5 +1,7 @@
 #include "game.h"
 
+//Function initializeBoard, parameters 2D array of characters and integers.
+//Initializes all values on provided game board to ~ to represent water.
 void initializeBoard(char board[10][10], int numRows, int numColumns) {
 	for (int i = 0; i < numRows; i++) {
 		for (int j = 0; j < numColumns; j++) {
@@ -8,6 +10,8 @@ void initializeBoard(char board[10][10], int numRows, int numColumns) {
 	}
 }
 
+//Function printBoard, parameters 2D array of characters and integers.
+//Prints 2D array character by character, with index markings on the left and top.
 void printBoard(char board[10][10], int numRows, int numColumns) {
 	for (int i = 0; i < numRows; i++) {
 		if (i == 0) {
@@ -23,10 +27,14 @@ void printBoard(char board[10][10], int numRows, int numColumns) {
 	}
 }
 
+//Function generateDirection.
+//Generates a random number 0-1, 0 being horizontal, 1 vertical, returns it.
 int generateDirection(void) {
 	return rand() % 2;
 }
 
+//Function generateStartingPoint, parameters integers and integer pointers.
+//Generates a starting point for a ship based on ship length and direction.
 void generateStartingPoint(int direction, int shipLength, int *row, int *column) {
 	if (direction == HORIZONTAL) {
 		*row = rand() % NUM_ROWS;
@@ -37,6 +45,8 @@ void generateStartingPoint(int direction, int shipLength, int *row, int *column)
 	}
 }
 
+//Function placeShip, parameters 2D array of characters, various integers (starting point, length of ship, etc.), character for ship symbol.
+//Places the ship onto the board based on provided starting point, length, direction, and symbol.
 void placeShip(char board[][NUM_COLS], int numRows, int numCols, int shipLength, char shipSymbol, int direction, int rowStart, int colStart) {
 	if (direction == HORIZONTAL) {
 		for (int i = 0; i < shipLength; i++) {
@@ -49,6 +59,9 @@ void placeShip(char board[][NUM_COLS], int numRows, int numCols, int shipLength,
 	}
 }
 
+//Function detectCollision, parameters 2D array of characters, integers (direction, length of ship, row and column).
+//Detects if placement of ship is invalid (that is, if the placement of the ship given length and direction would intersect something other than water.)
+//Returns 1 if valid placement, 0 if not.
 int detectCollision(char board[][NUM_COLS], int direction, int shipLength, int row, int col) {
 	int isValid = 0;
 	if (direction == HORIZONTAL) {
@@ -73,11 +86,17 @@ int detectCollision(char board[][NUM_COLS], int direction, int shipLength, int r
 	return isValid;
 }
 
-//Returns 0 if player 1 starts, 1 if player 2 starts
+//Function selectWhoStartsFirst.
+//Returns 0 if player 1 starts, 1 if player 2 (computer) starts.
 int selectWhoStartsFirst(void) {
 	return rand() % 2;
 }
 
+//Function manuallyPlaceShips, parameter 2D array of characters.
+//Prompts user for individual coordinates for every ship. If they are valid values, the board is initialized with the respective ship's token
+//on the parameter board (2D character array).
+//Iterates by 2 based on coordinates (even indices in arrays are row numbers, odd indices are column numbers).
+//Note that this coordinate array format is a prerequisite for this function's sister function, checkPlacement.
 void manuallyPlaceShips(char board[][NUM_COLS]) {
 	int row = 0, col = 0;
 	int carrierCoords[CARRIER_LENGTH * 2] = { 0 }, battleshipCoords[BATTLESHIP_LENGTH * 2] = { 0 },
@@ -218,7 +237,10 @@ void manuallyPlaceShips(char board[][NUM_COLS]) {
 		system("cls");
 }
 
-//Add board checking
+//Function checkPlacement, parameters 2D array of characters, array of integers, integer ship size.
+//Iterates and sees if all row coordinates (even indices in array) are equal, OR if all column coordinates (odd indices in array) are equal.
+//If so, checks if the array whose values are not all equal are sequential using bubble sort.
+//Returns 1 if placement is valid, 0 if not.
 int checkPlacement(char board[][NUM_COLS], int coords[], int shipSize) {
 	int rowsValid = 1, colsValid = 1, count = 0;
 	int rowCheck = coords[0];
@@ -268,7 +290,8 @@ int checkPlacement(char board[][NUM_COLS], int coords[], int shipSize) {
 	return 0;
 }
 
-//Implemented bubble sort for use in other functions
+//Function bubbleSort, sorts an array of integers in ascending order. Parameters array of integers and integer size.
+//Implemented bubble sort for use in other functions.
 void bubbleSort(int arr[], int size) {
 	int temp = 0;
 	for (int i = 0; i < size; i++) {
@@ -282,6 +305,9 @@ void bubbleSort(int arr[], int size) {
 	}
 }
 
+//Function isWinner, parameter 2D array of characters.
+//Checks for the number of hits (asterisks) on board. If 17 (the number of hits required for a win based on ship length), returns 1 (true).
+//Else, returns 0 (false).
 int isWinner(char board[][NUM_COLS]) {
 	int hitCount = 0;
 	for (int i = 0; i < NUM_ROWS; i++) {
@@ -297,6 +323,9 @@ int isWinner(char board[][NUM_COLS]) {
 	return 0;
 }
 
+//Function checkShot, parameters 2D array of characters, integers xPos and yPos, character pointer.
+//Checks if a shot is a hit or not based on if board at xPos, yPos is water or not.
+//Returns 1 is a hit, 0 if not. Also passes value of the character hit to the indirect value of token pointer.
 int checkShot(char board[][NUM_COLS], int xPos, int yPos, char *token) {
 	for (int i = 0; i < NUM_ROWS; i++) {
 		for (int j = 0; j < NUM_COLS; j++) {
@@ -313,6 +342,9 @@ int checkShot(char board[][NUM_COLS], int xPos, int yPos, char *token) {
 	return 0;
 }
 
+//Function updateBoard, parameters 2D array of characters, integers xPos and yPos, integer wannabe boolean wasHit.
+//Iterates through the board and if a hit is successful, updates the board at those coordinates with an asterisk.
+//If not, update the board at those coordinates with an 'M' for miss.
 void updateBoard(char board[][NUM_COLS], int xPos, int yPos, int wasHit) {
 	char shipToken = '\0';
 	for (int i = 0; i < NUM_ROWS; i++) {
@@ -329,6 +361,9 @@ void updateBoard(char board[][NUM_COLS], int xPos, int yPos, int wasHit) {
 	}
 }
 
+//Function checkIfSunkShip, parameters 2D array of characters, character token.
+//Checks if a ship was sunk based on the number of tokens still on the board. If there are none of the given token left on the board, the ship was sunk. Returns 1.
+//Else, returns 0 if there is still at least one token left on the board.
 int checkIfSunkShip(char board[][NUM_COLS], char shipToken) {
 	int tokenCount = 0;
 	for (int i = 0; i < NUM_ROWS; i++) {
@@ -344,6 +379,8 @@ int checkIfSunkShip(char board[][NUM_COLS], char shipToken) {
 	return 0;
 }
 
+//Function outputCurrentMove, parameters file pointer outfile, integers currentPlayer, xPos, yPos, boolean-acting integers wasHit and wasSunk.
+//Outputs to provided outfile moves and results of actions based on current player.
 void outputCurrentMove(FILE *outfile, int currentPlayer, int xPos, int yPos, int wasHit, int wasSunk) {
 	switch (currentPlayer) {
 	case 0: //Player
@@ -373,6 +410,9 @@ void outputCurrentMove(FILE *outfile, int currentPlayer, int xPos, int yPos, int
 	}
 }
 
+//Function outputStats, parameters file pointer outfile, Stats structs playerOne and playerTwo.
+//Prints out the number of hits, misses, total number of shots, and the hit/miss ratio to outfile.
+//Note that these should all be stored locally into Stats objects, then accessed with the dot operator in this function.
 void outputStats(FILE *outfile, Stats playerOne, Stats playerTwo) {
 	fprintf(outfile, "Player One Stats:\n");
 	fprintf(outfile, "-----------------\n");

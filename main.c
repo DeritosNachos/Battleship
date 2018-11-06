@@ -4,6 +4,7 @@ int main(void) {
 	srand((unsigned int)time(NULL));
 
 	//Note that playerTwoBoard mostly exists for debugging purposes.
+	//Variable instantiation. Bool and int mixed types due to function implementation.
 	char playerOneBoard[NUM_ROWS][NUM_COLS] = { {'\0'} },
 		playerTwoBoard[NUM_ROWS][NUM_COLS] = { { '\0'} },
 		pTwoShownBoard[NUM_ROWS][NUM_COLS] = { { '\0' } },
