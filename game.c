@@ -362,7 +362,7 @@ void updateBoard(char board[][NUM_COLS], int xPos, int yPos, int wasHit) {
 }
 
 //Function checkIfSunkShip, parameters 2D array of characters, character token.
-//Checks if a ship was sunk based on the number of tokens still on the board. If there are none of the given token left on the board, the ship was sunk. Returns 1.
+//Checks if a ship was sunk based on the number of tokens still on the board. If there are 'none' of the given token left on the board, the ship was sunk. Returns 1.
 //Else, returns 0 if there is still at least one token left on the board.
 int checkIfSunkShip(char board[][NUM_COLS], char shipToken) {
 	int tokenCount = 0;
@@ -373,7 +373,9 @@ int checkIfSunkShip(char board[][NUM_COLS], char shipToken) {
 			}
 		}
 	}
-	if (tokenCount == 0) {
+	//Note that while the function theoretically checks if there are "no" tokens left on the board, it actually checks if there is 1 left, as this
+	//function executes before the board actually updates.
+	if (tokenCount == 1) {
 		return 1;
 	}
 	return 0;

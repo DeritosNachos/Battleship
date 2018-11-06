@@ -103,7 +103,7 @@ int main(void) {
 			printf("Your Board:\n");
 			printBoard(playerOneBoard, NUM_ROWS, NUM_COLS);
 			printf("\nComputer's Board:\n");
-			printBoard(pTwoShownBoard, NUM_ROWS, NUM_COLS);
+			printBoard(playerTwoBoard, NUM_ROWS, NUM_COLS);
 			printf("Enter a target: ");
 			scanf("%d %d", &xPos, &yPos);
 			playerOne.totalShots++;
