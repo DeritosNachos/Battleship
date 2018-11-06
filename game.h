@@ -58,6 +58,8 @@ int checkShot(char board[][NUM_COLS], int xPos, int yPos, char *token);
 
 int checkIfSunkShip(char board[][NUM_COLS], char shipToken);
 
+void outputCurrentMove(FILE *outfile, int currentPlayer, int xPos, int yPos, int wasHit, int wasSunk);
+
 void outputStats(FILE *outfile, Stats playerOne, Stats playerTwo);
 
 #endif

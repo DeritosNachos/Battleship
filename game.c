@@ -316,7 +316,7 @@ int checkShot(char board[][NUM_COLS], int xPos, int yPos, char *token) {
 void updateBoard(char board[][NUM_COLS], int xPos, int yPos) {
 	for (int i = 0; i < NUM_ROWS; i++) {
 		for (int j = 0; j < NUM_COLS; j++) {
-			if (checkShot(board, xPos, yPos) == 1) {
+			if (checkShot(board, xPos, yPos, '\0') == 1) {
 				board[i][j] = '*';
 			} else if (i == xPos && j == yPos) {
 				board[i][j] = 'M';
