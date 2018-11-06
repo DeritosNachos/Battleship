@@ -297,12 +297,13 @@ int isWinner(char board[][NUM_COLS]) {
 	return 0;
 }
 
-int checkShot(char board[][NUM_COLS], int xPos, int yPos) {
+int checkShot(char board[][NUM_COLS], int xPos, int yPos, char *token) {
 	for (int i = 0; i < NUM_ROWS; i++) {
 		for (int j = 0; j < NUM_COLS; j++) {
 			if (i == xPos && j == yPos) {
 				if (board[i][j] != '~') {
 					if (board[i][j] != 'M' || board[i][j] != '*') {
+						*token = board[i][j];
 						return 1;
 					}
 				}
@@ -317,10 +318,25 @@ void updateBoard(char board[][NUM_COLS], int xPos, int yPos) {
 		for (int j = 0; j < NUM_COLS; j++) {
 			if (checkShot(board, xPos, yPos) == 1) {
 				board[i][j] = '*';
-			} else {
+			} else if (i == xPos && j == yPos) {
 				board[i][j] = 'M';
 			}
 		}
 	}
+}
+
+int checkIfSunkShip(char board[][NUM_COLS], char shipToken) {
+	int tokenCount = 0;
+	for (int i = 0; i < NUM_ROWS; i++) {
+		for (int j = 0; j < NUM_COLS; j++) {
+			if (board[i][j] == shipToken) {
+				tokenCount++;
+			}
+		}
+	}
+	if (tokenCount == 0) {
+		return 1;
+	}
+	return 0;
 }
 

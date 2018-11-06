@@ -54,6 +54,8 @@ int isWinner(char board[][NUM_COLS]);
 
 void updateBoard(char board[][NUM_COLS], int xPos, int yPos);
 
-int checkShot(char board[][NUM_COLS], int xPos, int yPos);
+int checkShot(char board[][NUM_COLS], int xPos, int yPos, char *token);
+
+int checkIfSunkShip(char board[][NUM_COLS], char shipToken);
 
 #endif
