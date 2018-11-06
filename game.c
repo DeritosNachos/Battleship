@@ -379,11 +379,11 @@ void outputStats(FILE *outfile, Stats playerOne, Stats playerTwo) {
 	fprintf(outfile, "Number of Hits: %d\n", playerOne.numHits);
 	fprintf(outfile, "Number of Misses: %d\n", playerOne.numMisses);
 	fprintf(outfile, "Total Number of Shots: %d\n", playerOne.totalShots);
-	fprintf(outfile, "Hit/Miss Ratio: %lf\n", playerOne.hitsMisses);
+	fprintf(outfile, "Hit/Miss Ratio: %.2lf%%\n", playerOne.hitsMisses);
 	fprintf(outfile, "Computer Stats:\n");
 	fprintf(outfile, "-----------------\n");
 	fprintf(outfile, "Number of Hits: %d\n", playerTwo.numHits);
 	fprintf(outfile, "Number of Misses: %d\n", playerTwo.numMisses);
 	fprintf(outfile, "Total Number of Shots: %d\n", playerTwo.totalShots);
-	fprintf(outfile, "Hit/Miss Ratio: %lf\n", playerTwo.hitsMisses);
+	fprintf(outfile, "Hit/Miss Ratio: %.2lf%%\n", playerTwo.hitsMisses);
 }

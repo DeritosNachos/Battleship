@@ -116,8 +116,7 @@ int main(void) {
 				printf("You won!\n");
 				system("pause");
 				hasWon = 1;
-				currentPlayer = 2;
-				break;
+				goto breakout;
 			}
 			currentPlayer = 1;
 			break;
@@ -151,19 +150,18 @@ int main(void) {
 				printf("You lost!\n");
 				system("pause");
 				hasLost = 1;
-				currentPlayer = 2;
-				break;
+				goto breakout;
 			}
 			outputCurrentMove(outfile, currentPlayer, xPos, yPos, wasHit, wasSunk);
 			currentPlayer = 0;
 			break;
-		case 2:
-			//Breakout case.
-			printf("Printing statistics to battleship.log...\n");
 		}
 	}
-	playerOne.hitsMisses = (double) playerOne.numHits / playerOne.numMisses;
-	playerTwo.hitsMisses = (double)playerTwo.numHits / playerTwo.numMisses;
+
+breakout:
+	printf("Printing statistics to battleship.log...\n");
+	playerOne.hitsMisses = ((double) playerOne.numHits / playerOne.totalShots)*100;
+	playerTwo.hitsMisses = ((double)playerTwo.numHits / playerTwo.totalShots)*100;
 	outputStats(outfile, playerOne, playerTwo);
 	fclose(outfile);
 
