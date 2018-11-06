@@ -282,3 +282,18 @@ void bubbleSort(int arr[], int size) {
 	}
 }
 
+int isWinner(char board[][NUM_COLS]) {
+	int hitCount = 0;
+	for (int i = 0; i < NUM_ROWS; i++) {
+		for (int j = 0; j < NUM_COLS; j++) {
+			if (board[i][j] == '*') {
+				hitCount++;
+			}
+		}
+	}
+	if (hitCount == 17) {
+		return 1;
+	}
+	return 0;
+}
+

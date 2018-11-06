@@ -5,13 +5,14 @@ int main(void) {
 
 	char playerOneBoard[NUM_ROWS][NUM_COLS] = { {'\0'} },
 		playerTwoBoard[NUM_ROWS][NUM_COLS] = { { '\0'} },
+		pTwoShownBoard[NUM_ROWS][NUM_COLS] = { { '\0' } },
 		shipSymbols[5] = { 'C', 'B', 'S', 'R', 'D' };
 	int playerOneHits[NUM_ROWS][NUM_COLS] = { { 0 } },
 		playerTwoHits[NUM_ROWS][NUM_COLS] = { { 0 } };
 	int shipLengths[5] = { CARRIER_LENGTH, BATTLESHIP_LENGTH, SUBMARINE_LENGTH, CRUISER_LENGTH, DESTROYER_LENGTH };
 	int direction = HORIZONTAL, rowStart = 0, colStart = 0;
 	int intIn = 0;
-	bool placing = false;
+	bool placing = false, hasWon = false, hasLost = false;
 
 	//Ship carrier = { CARRIER_LENGTH, 0, 'C' }, battleship = { BATTLESHIP_LENGTH, 0, 'B' },
 	//	 submarine = { SUBMARINE_LENGTH, 0, 'S' }, cruiser = { CRUISER_LENGTH, 0, 'R' },
@@ -19,6 +20,7 @@ int main(void) {
 
 	initializeBoard(playerOneBoard, NUM_ROWS, NUM_COLS);
 	initializeBoard(playerTwoBoard, NUM_ROWS, NUM_COLS);
+	initializeBoard(pTwoShownBoard, NUM_ROWS, NUM_COLS);
 	printBoard(playerOneBoard, NUM_ROWS, NUM_COLS);
 	printf("\n\n");
 
@@ -62,7 +64,19 @@ int main(void) {
 		} while (placing);
 	}
 	printf("PLAYER 2 BOARD:\n");
-	printBoard(playerTwoBoard, NUM_ROWS, NUM_COLS);
+	printBoard(pTwoShownBoard, NUM_ROWS, NUM_COLS);
+
+	int currentPlayer = selectWhoStartsFirst();
+	if (currentPlayer == 0) { //Player
+		printf("Player 1 has been randomly selected to go first.\n");
+	}
+	else if (currentPlayer == 1) { //Computer
+		printf("Player 2 (computer) has been randomly selected to go first.\n");
+	}
+
+	while (!hasWon || !hasLost) {
+
+	}
 
 	return 0; //End of main function
 }

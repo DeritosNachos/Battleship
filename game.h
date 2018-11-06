@@ -50,4 +50,6 @@ int checkPlacement(char board[][NUM_COLS], int coords[], int shipSize);
 
 void bubbleSort(int arr[], int size);
 
+int isWinner(char board[][NUM_COLS]);
+
 #endif
