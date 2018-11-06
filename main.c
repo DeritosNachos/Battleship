@@ -116,6 +116,7 @@ int main(void) {
 				printf("You won!\n");
 				system("pause");
 				hasWon = 1;
+				currentPlayer = 2;
 				break;
 			}
 			currentPlayer = 1;
@@ -150,11 +151,15 @@ int main(void) {
 				printf("You lost!\n");
 				system("pause");
 				hasLost = 1;
+				currentPlayer = 2;
 				break;
 			}
 			outputCurrentMove(outfile, currentPlayer, xPos, yPos, wasHit, wasSunk);
 			currentPlayer = 0;
 			break;
+		case 2:
+			//Breakout case.
+			printf("Printing statistics to battleship.log...\n");
 		}
 	}
 	playerOne.hitsMisses = (double) playerOne.numHits / playerOne.numMisses;

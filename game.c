@@ -354,7 +354,7 @@ void outputCurrentMove(FILE *outfile, int currentPlayer, int xPos, int yPos, int
 				fprintf(outfile, "Player 1 attacked at %d, %d. It was a hit!\n", xPos, yPos);
 			}
 		} else {
-			fprintf(outfile, "Player 1 attacked at %d, %d. It was a miss.", xPos, yPos);
+			fprintf(outfile, "Player 1 attacked at %d, %d. It was a miss.\n", xPos, yPos);
 		}
 		break;
 	case 1: //Computer
@@ -367,7 +367,7 @@ void outputCurrentMove(FILE *outfile, int currentPlayer, int xPos, int yPos, int
 			}
 		}
 		else {
-			fprintf(outfile, "Computer attacked at %d, %d. It was a miss.", xPos, yPos);
+			fprintf(outfile, "Computer attacked at %d, %d. It was a miss.\n", xPos, yPos);
 		}
 		break;
 	}
