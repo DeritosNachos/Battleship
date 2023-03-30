@@ -1,4 +1,8 @@
-Debug
-PA6.vcxproj
-PA6.vcxproj.filters
-battleship.log
+
+target/
+.idea/
+*.class
+*.iml
+*.properties
+node_modules/
+dist/
