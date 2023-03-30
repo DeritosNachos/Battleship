@@ -1,6 +1,6 @@
 # Battleship
 
-Implemented by Zach Nett, 2018. Refactored in Java
+Implemented by Zach Nett, 2018. Refactored in Java.
 
 Additional code provided by Andrew O'Fallon, 2018.
 ASCII art found at [patorjk.com](http://patorjk.com/software/taag/).
